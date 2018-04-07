@@ -9,7 +9,7 @@ exports.save = async (req, res) => {
   const scores = scoreGenerator(journey);
 
   // save scores for times leaderboard
-  const {score} = scores.find(async s => s.type === 'time');
+  const {score} = scores.find(s => s.type === 'time');
   score.map(async (leg) => {
     const toSave = {
       user: journey.user,
