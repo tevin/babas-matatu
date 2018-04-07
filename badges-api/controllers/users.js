@@ -3,8 +3,11 @@ const TimesLeaderboard = require('../models/times');
 const CostLeaderboard = require('../models/costs');
 const EmissionsLeaderboard = require('../models/emissions');
 const ObjectId = require('mongoose').Types.ObjectId; 
-const lbs = [TimesLeaderboard, CostLeaderboard, EmissionsLeaderboard]
-
+const lbs = [
+  {type: 'time', lb: TimesLeaderboard},
+  {type: 'cost', lb: CostLeaderboard},
+  {type: 'emissions', lb: EmissionsLeaderboard}
+]
 exports.create = (req, res, next) => {
   const user = new User(req.body)
   user.save((err, result) => {
@@ -21,17 +24,17 @@ exports.get = async (req, res) => {
   const query = {
     user: '5ac8d375e488b67b9ac4917b'
   }
-  let entries = [];
-  await lbs.map(async (lb) => {
+  let boards = [];
+
+  for(let i = 0; i < lbs.length; i++ ) {
+    const lb = lbs[i].lb;
+    const leaderboard = lbs[i].type
     const entry = await lb.find(query);
     const rank = await lb.find({pts: {$gt: entry.score}}).count() + 1;
-    if(entry) {
-      console.log("pushing entry")
-      entries.push({entry, rank});
+    if(entry.length > 0) {
+      boards.push({leaderboard, entry, rank});
     }
-  });
-  console.log("ENTRIES")
-  console.log(entries)
+  }
 
-  res.json({entries, trophies});
+  res.json({boards, trophies});
 }
