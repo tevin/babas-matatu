@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    xmlns:uber="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sliding_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    sothree:umanoDragView="@+id/dragView"
+    sothree:umanoOverlay="true"
+    sothree:umanoPanelHeight="68dp"
+    sothree:umanoParallaxOffset="100dp"
+    sothree:umanoScrollableView="@+id/list"
+    sothree:umanoShadowHeight="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="From"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/fromEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="6"
+                    android:enabled="false"
+                    android:focusable="false"
+                    android:text="Current Location" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="To"
+                    android:textSize="16dp" />
+
+                <EditText
+                    android:id="@+id/toEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="6"
+                    android:enabled="false"
+                    android:focusable="false" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/journeyList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"></ListView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="false"
+        android:id="@+id/dragView">
+        <TextView
+            android:id="@+id/descriptiveTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Here"
+            android:textSize="20dp"
+            android:textColor="#000"
+            android:textAlignment="center"
+            android:layout_marginTop="5dp"/>
+        <com.uber.sdk.android.rides.RideRequestButton
+            android:id="@+id/uberButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            uber:ub__style="black"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:textColor="#ff0000"
+            android:text="End Trip"
+            android:layout_marginTop="10dp"/>
+    </LinearLayout>
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>
