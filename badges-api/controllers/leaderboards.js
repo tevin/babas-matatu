@@ -23,5 +23,6 @@ exports.get = async (req, res) => {
 
     const topTen = await lb.find(query).limit(10);
     const userPosition = await lb.findOne({...query, user});
-    res.json({topTen, userPosition});
+    const userRank = await lb.find({...query, pts: {$gt: userPosition.score}}).count() + 1;
+    res.json({topTen, userPosition, userRank});
 }
