@@ -7,4 +7,4 @@ const userSchema = new Schema({
   username: { type: String, default: '' }
 })
 
-mongoose.model('User', userSchema)
+module.exports = mongoose.model('User', userSchema)

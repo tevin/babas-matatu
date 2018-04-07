@@ -39,6 +39,10 @@ connection.once('open', listen)
 
 
 function listen () {
+  app.use(function (err, req, res, next) {
+    res.status(500).send(err)
+    next()
+  })
   app.listen(port)
   console.log('Express app started on port ' + port)
 }

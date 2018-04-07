@@ -6,5 +6,5 @@ module.exports = function (app) {
     extended: true
   }))
   app.use(bodyParser.json())
-
+  
 }

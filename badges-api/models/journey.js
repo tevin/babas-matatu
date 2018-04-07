@@ -1,40 +1,49 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+
+
 const journeySchema = new Schema({
     user: {
         type: Schema.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: true
     },
     to: {
         type: [Number],
-        index: '2d'
+        index: '2d',
+        required: true
     },
     from: {
         type: [Number],
-        index: '2d'
+        index: '2d',
+        required: true
     },
     legs: [{
         legType: {
             type: String,
-            default: 'matatu'
+            default: 'matatu',
         },
         start: {
             type: [Number],
-            index: '2d'
+            index: '2d',
+            required: true
         },
         end: {
             type: [Number],
-            index: '2d'
+            index: '2d',
+            required: true
         },
         wimtLineID: {
-            type: String
+            type: String,
+            required: true
         },
         description: {
             type: String
         },
         distance: {
-            type: Number
+            type: Number,
+            required: true
         },
         timeTaken: {
             type: Number
@@ -69,4 +78,4 @@ const journeySchema = new Schema({
         default: Date.now
     }
 })
-mongoose.model('Journey', journeySchema)
+module.exports = mongoose.model('Journey', journeySchema)

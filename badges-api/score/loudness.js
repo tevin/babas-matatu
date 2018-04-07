@@ -1,3 +1,3 @@
 module.exports = function scoreLoudness(journey) {
-  return 0
+  return { type: 'loudness', score: 0 }
 }
