@@ -1,88 +1,83 @@
-{   
+{
     "user": "userID",
-    "id": "journeyName",
-    "journey": {
-        "legs": [
-            [
-                {
-                    "legType": "matatu",
-                    "start":"[lat, long]",
-                    "end": "[lat, long]",
-                    "wimtLineID": "WIMTLineID",
-                    "description": "Take #15 from Carnivore to Town",
-                    "distance": "distanceForEntireLeg",
-                    "timeTaken": "totalTimeTaken",
-                    "highestLoudness": "loudness in dB",
-                    "startStopId": "wimtStopId",
-                    "endStopId": "wimtStopId",
-                    "steps": [
-                        {
-                            "instructions": "Board #15 at the Carnivore Stop",
-                            "location": "[lat, long]"
-                        },
-                        {
-                            "instructions": "Get Off #15 at the Kenyatta Stop",
-                            "location": "[lat, long]"
-                        }
-                        
-                    ],
-                    "waypoints": [
-                        {
-                            "stopId": "wimtStopID",
-                            "location": "[lat, long]"
-                        },
-                        {
-                            "stopId": "wimtStopID",
-                            "location": "[lat, long]"
-                        },
-                        {
-                            "stopId": "wimtStopID",
-                            "location": "[lat, long]"
-                        },
-                        {
-                            "stopId": "wimtStopID",
-                            "location": "[lat, long]"
-                        },
-                        {
-                            "stopId": "wimtStopID",
-                            "location": "[lat, long]"
-                        }
-                    ]
-                },
-                {
-                    "legType": "walk",
-                    "start": "[lat, long]",
-                    "end": "[lat, long]",
-                    "distance": "distanceForEntireLeg",
-                    "description": "Walk to Kenya Cinema",
-                    "timeTaken": "time",
-                    "highestloudness": "loudness",
-                    "steps": [
-                        {
-                            "instructions": "Walk from Afya Centre to Moi Avenue",
-                            "location": "[lat, long]"
-                        },
-                        {
-                            "instructions": "Walk from Moi Avenue to Kenya Cinema",
-                            "location": "[lat, long]"
-                        }
+    "from": "[lat, long]",
+    "to": "[lat, long]",
+    "legs": [
+        [{
+                "legType": "matatu",
+                "start": "[lat, long]",
+                "end": "[lat, long]",
+                "wimtLineID": "WIMTLineID",
+                "description": "Take #15 from Carnivore to Town",
+                "distance": "distanceForEntireLeg",
+                "timeTaken": "totalTimeTaken",
+                "highestLoudness": "loudness in dB",
+                "startStopId": "wimtStopId",
+                "endStopId": "wimtStopId",
+                "steps": [{
+                        "instructions": "Board #15 at the Carnivore Stop",
+                        "location": "[lat, long]"
+                    },
+                    {
+                        "instructions": "Get Off #15 at the Kenyatta Stop",
+                        "location": "[lat, long]"
+                    }
 
-                    ]
-                },
-                {
-                    "legType": "uber",
-                    "start": "[lat, long]",
-                    "end": "[lat, long]",
-                    "distance": "distanceForEntireLeg",
-                    "description": "Take an Uber from Kenya Cinema",
-                    "timeTaken": "time",
-                    "highestloudness": "loudness",
-                    "uberTripId": "tripID",
-                    "uberDriverName": "DriverName",
-                    "uberCarPlate": "LicensePlate",
-                    "steps": []
-                }
-            ]
+                ],
+                "waypoints": [{
+                        "stopId": "wimtStopID",
+                        "location": "[lat, long]"
+                    },
+                    {
+                        "stopId": "wimtStopID",
+                        "location": "[lat, long]"
+                    },
+                    {
+                        "stopId": "wimtStopID",
+                        "location": "[lat, long]"
+                    },
+                    {
+                        "stopId": "wimtStopID",
+                        "location": "[lat, long]"
+                    },
+                    {
+                        "stopId": "wimtStopID",
+                        "location": "[lat, long]"
+                    }
+                ]
+            },
+            {
+                "legType": "walk",
+                "start": "[lat, long]",
+                "end": "[lat, long]",
+                "distance": "distanceForEntireLeg",
+                "description": "Walk to Kenya Cinema",
+                "timeTaken": "time",
+                "highestloudness": "loudness",
+                "steps": [{
+                        "instructions": "Walk from Afya Centre to Moi Avenue",
+                        "location": "[lat, long]"
+                    },
+                    {
+                        "instructions": "Walk from Moi Avenue to Kenya Cinema",
+                        "location": "[lat, long]"
+                    }
+
+                ]
+            },
+            {
+                "legType": "uber",
+                "start": "[lat, long]",
+                "end": "[lat, long]",
+                "distance": "distanceForEntireLeg",
+                "description": "Take an Uber from Kenya Cinema",
+                "timeTaken": "time",
+                "highestloudness": "loudness",
+                "uberTripId": "tripID",
+                "uberDriverName": "DriverName",
+                "uberCarPlate": "LicensePlate",
+                "steps": []
+            }
         ]
-    }
+    ]
 }
