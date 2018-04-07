@@ -16,4 +16,4 @@ const costLeaderboardSchema = new Schema({
     }
 });
 
-mongoose.model('CostLeaderboard', costLeaderboardSchema)
+module.exports = mongoose.model('CostLeaderboard', costLeaderboardSchema)
