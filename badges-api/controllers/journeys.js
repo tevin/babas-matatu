@@ -7,7 +7,7 @@ exports.index = (req, res) => {
 }
 const scoreGenerator = require('../score')
 exports.save = async (req, res) => {
-  const journey = await Journey.create(req.body);
+  const journey = await new Journey(req.body);
   const scores = scoreGenerator(journey);
   const defaults = {
     user: journey.user,

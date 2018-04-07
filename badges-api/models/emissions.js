@@ -16,4 +16,4 @@ const emissionsLeaderboardSchema = new Schema({
     }
 });
 
-mongoose.model('EmissionsLeaderboard', emissionsLeaderboardSchema)
+module.exports = mongoose.model('EmissionsLeaderboard', emissionsLeaderboardSchema)

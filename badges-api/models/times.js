@@ -19,4 +19,4 @@ const timeLeaderboardSchema = new Schema({
     }
 });
 
-mongoose.model('TimeLeaderboard', timeLeaderboardSchema)
+module.exports = mongoose.model('TimeLeaderboard', timeLeaderboardSchema)
