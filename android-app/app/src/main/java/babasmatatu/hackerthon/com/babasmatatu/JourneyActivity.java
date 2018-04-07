@@ -2,6 +2,7 @@ package babasmatatu.hackerthon.com.babasmatatu;
 
 import android.Manifest;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -13,10 +14,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -33,8 +39,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 import com.uber.sdk.android.core.UberSdk;
 import com.uber.sdk.android.rides.RideParameters;
+import com.uber.sdk.android.rides.RideRequestButton;
 import com.uber.sdk.rides.client.SessionConfiguration;
 
 import java.io.IOException;
@@ -50,6 +58,7 @@ import babasmatatu.hackerthon.com.babasmatatu.helpers.GeofenceTransitionsIntentS
 import babasmatatu.hackerthon.com.babasmatatu.helpers.InterfaceAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by munene on 4/7/2018.
@@ -71,6 +80,16 @@ public class JourneyActivity extends AppCompatActivity {
     EditText toEditText;
     @BindView(R.id.journeyList)
     ListView journeyList;
+    @BindView(R.id.sliding_layout)
+    SlidingUpPanelLayout slidingLayout;
+    @BindView(R.id.dragView)
+    LinearLayout dragView;
+    @BindView(R.id.descriptiveTextView)
+    TextView descriptiveTextView;
+    @BindView(R.id.uberButton)
+    RideRequestButton uberButton;
+    @BindView(R.id.endRideButton)
+    Button endRideButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -94,7 +113,7 @@ public class JourneyActivity extends AppCompatActivity {
         String journeyString = extras.getString("journey");
 
         Gson gson = new Gson();
-        Journey journey = gson.fromJson(journeyString, Journey.class);
+        final Journey journey = gson.fromJson(journeyString, Journey.class);
 
         if (journey == null) {
             Toast.makeText(this, "Where de journey though?? Jeremy made an oopsie. Baba alisema fails automatically.", Toast.LENGTH_LONG).show();
@@ -103,6 +122,10 @@ public class JourneyActivity extends AppCompatActivity {
 
         fromEditText.setText(fromPlaceName);
         toEditText.setText(toPlaceName);
+
+        slidingLayout.setAnchorPoint(0.2f);
+        slidingLayout.setOverlayed(true);
+        computeSliderHeight(false);
 
         ArrayList<String> values = new ArrayList<>();
         int count = 0;
@@ -122,23 +145,6 @@ public class JourneyActivity extends AppCompatActivity {
         UberSdk.initialize(config);
 
         final Handler h = new Handler();
-        h.postDelayed(new Runnable()
-        {
-            private long time = 0;
-
-            @Override
-            public void run()
-            {
-                // do stuff then
-                // can call h again after work!
-                //time += 1000;
-                //Log.d("TimerExample", "Going for... " + time);
-
-
-
-                h.postDelayed(this, 1000);
-            }
-        }, 15000); // 1 second delay (takes millis)
 
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
 
@@ -162,7 +168,7 @@ public class JourneyActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            try{
+            try {
                 mGeofenceList.add(new Geofence.Builder()
                         // Set the request ID of the geofence. This is a string to identify this
                         // geofence.
@@ -186,7 +192,7 @@ public class JourneyActivity extends AppCompatActivity {
 
                         // Create the geofence.
                         .build());
-            }catch (Exception e){
+            } catch (Exception e) {
                 //Do nothing
             }
         }
@@ -197,6 +203,104 @@ public class JourneyActivity extends AppCompatActivity {
 
         // Assign adapter to ListView
         journeyList.setAdapter(adapter);
+
+        try{
+            Steps step = journey.getSteps()[0];
+            descriptiveTextView.setText(step.getInstructions());
+
+            if (step.getType().toLowerCase().trim().equals("uber".toLowerCase().trim()))
+            {
+                uberButton.setVisibility(View.VISIBLE);
+                computeSliderHeight(true);
+            }
+            else {
+                uberButton.setVisibility(View.GONE);
+                computeSliderHeight(false);
+            }
+            journeyList.setSelection(0);
+        }catch (Exception e){
+            //Do nothing
+        }
+
+        h.postDelayed(new Runnable() {
+            private long time = 0;
+            int journeyCount = 1;
+
+            @Override
+            public void run() {
+                // do stuff then
+                // can call h again after work!
+                //time += 1000;
+                //Log.d("TimerExample", "Going for... " + time);
+
+                try{
+                    if (journeyCount == journey.getSteps().length ){
+                        //End trip
+                        Toast.makeText(JourneyActivity.this, "Your trip has ended", Toast.LENGTH_LONG).show();
+                        onBackPressed();
+                        return;
+                    }
+
+                    journeyList.setSelection(journeyCount);
+                    Steps step = journey.getSteps()[journeyCount];
+                    descriptiveTextView.setText(step.getInstructions());
+
+                    if (step.getType().toLowerCase().trim().equals("uber".toLowerCase().trim()))
+                    {
+                        uberButton.setVisibility(View.VISIBLE);
+
+                        String longLatStringStart = step.getStart();
+                        String longLatStringEnd = step.getEnd();
+                        ObjectMapper mapper = new ObjectMapper();
+                        double longitudeStart = 0.0, latitudeStart = 0.0, longitudeEnd = 0.0, latitudeEnd = 0.0;
+
+                        try {
+                            List<Double> participantJsonStartList = mapper.readValue(longLatStringStart, new TypeReference<List<Double>>() {
+                            });
+                            List<Double> participantJsonEndList = mapper.readValue(longLatStringEnd, new TypeReference<List<Double>>() {
+                            });
+
+                            if (!participantJsonStartList.isEmpty()) {
+                                longitudeStart = participantJsonStartList.get(0);
+                                latitudeStart = participantJsonStartList.get(1);
+                            }
+
+                            if (!participantJsonEndList.isEmpty()) {
+                                latitudeEnd = participantJsonEndList.get(0);
+                                longitudeEnd = participantJsonEndList.get(1);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        RideParameters rideParams = new RideParameters.Builder()
+                                // Optional product_id from /v1/products endpoint (e.g. UberX). If not provided, most cost-efficient product will be used
+                                .setProductId("a1111c8c-c720-46c3-8534-2fcdd730040d")
+                                // Required for price estimates; lat (Double), lng (Double), nickname (String), formatted address (String) of dropoff location
+                                .setDropoffLocation(
+                                        latitudeStart, longitudeStart, "", "")
+                                // Required for pickup estimates; lat (Double), lng (Double), nickname (String), formatted address (String) of pickup location
+                                .setPickupLocation(latitudeEnd, longitudeEnd, "", "")
+                                .build();
+// set parameters for the RideRequestButton instance
+                        uberButton.setRideParameters(rideParams);
+
+                        computeSliderHeight(true);
+                    }
+                    else {
+                        uberButton.setVisibility(View.GONE);
+                        computeSliderHeight(false);
+                    }
+
+                    journeyCount ++;
+
+                }catch (Exception e){
+                    //Do nothing
+                }
+                h.postDelayed(this, 5000);
+            }
+        }, 15000); // 1 second delay (takes millis)
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -209,15 +313,20 @@ public class JourneyActivity extends AppCompatActivity {
                             String a = "";
                         }
                     })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    String b = "";
-                }
-            });
-        }catch (Exception e){
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            String b = "";
+                        }
+                    });
+        } catch (Exception e) {
             //Do nothing
         }
+    }
+
+    public void computeSliderHeight(Boolean isUberActive){
+        if (isUberActive) slidingLayout.setPanelHeight(560);
+        else slidingLayout.setPanelHeight(300);
     }
 
     @Override
@@ -235,9 +344,15 @@ public class JourneyActivity extends AppCompatActivity {
 
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             //Do nothing
         }
+    }
+
+    @OnClick(R.id.endRideButton)
+    public void endRide(View view) {
+        Toast.makeText(this, "Your ride has ended", Toast.LENGTH_LONG).show();
+        onBackPressed();
     }
 
     private GeofencingRequest getGeofencingRequest() {

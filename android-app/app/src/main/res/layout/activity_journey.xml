@@ -104,8 +104,10 @@
             android:layout_height="wrap_content"
             uber:ub__style="black"
             android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            android:visibility="gone"/>
         <Button
+            android:id="@+id/endRideButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
