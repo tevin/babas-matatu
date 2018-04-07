@@ -1,0 +1,26 @@
+{   
+    "id": "journeyName",
+    "steps": [{
+        "type": "matatu",
+        "start": "[lat, long]",
+        "end": "[lat, long]",
+        "line": "WIMTLineID",
+        "distance": "distanceForEntireLeg",
+        "instructions": "Take #15 at the X Stop"
+    },
+    {
+        "type": "walk",
+        "start": "[lat, long]",
+        "end": "[lat, long]",
+        "distance": "distanceForEntireLeg",
+        "instructions": "Walk to Pizza In"
+    },
+    {
+        "type": "uber",
+        "start": "[lat, long]",
+        "end": "[lat, long]",
+        "distance": "distanceForEntireLeg",
+        "instructions": "Take Uber with $DriverName in $PlateNumber",
+        "uberTripId": "tripID"
+    }]
+}
