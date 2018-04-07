@@ -6,7 +6,8 @@
         "end": "[lat, long]",
         "line": "WIMTLineID",
         "distance": "distanceForEntireLeg",
-        "instructions": "Take #15 at the X Stop"
+        "instructions": "Take #15 at the X Stop",
+        "waypoints": "[[stopid_1, stopid_2, ...]]"
     },
     {
         "type": "walk",
