@@ -19,12 +19,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".JourneyActivity"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />
 
-        <service android:name=".GeofenceTransitionsJobIntentService"/>
+        <service android:name=".helpers.GeofenceTransitionsJobIntentService"/>
     </application>
 
 </manifest>

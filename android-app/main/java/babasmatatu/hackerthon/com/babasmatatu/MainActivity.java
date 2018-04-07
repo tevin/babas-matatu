@@ -1,34 +1,37 @@
 package babasmatatu.hackerthon.com.babasmatatu;
 
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceDetectionApi;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.gson.Gson;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
+import babasmatatu.hackerthon.com.babasmatatu.helpers.ILocationCallback;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static babasmatatu.hackerthon.com.babasmatatu.MiscServices.getInitalLocationGlobal;
-import static babasmatatu.hackerthon.com.babasmatatu.MiscServices.getLocationGlobal;
-import static babasmatatu.hackerthon.com.babasmatatu.MiscServices.hideSoftKeyBoard;
+import static babasmatatu.hackerthon.com.babasmatatu.helpers.MiscServices.getInitalLocationGlobal;
+import static babasmatatu.hackerthon.com.babasmatatu.helpers.MiscServices.getLocationGlobal;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
     final int PLACE_AUTOCOMPLETE_REQUEST_CODE_FROM = 2;
     final int PLACE_AUTOCOMPLETE_REQUEST_CODE_TO = 3;
 
-    Place fromPlace;
-    Place toPlace;
+    Place fromPlace = null;
+    Place toPlace = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,27 +105,27 @@ public class MainActivity extends AppCompatActivity {
                     fromPlace = new Place() {
                         @Override
                         public String getId() {
-                            return null;
+                            return toPlace.getId();
                         }
 
                         @Override
                         public List<Integer> getPlaceTypes() {
-                            return null;
+                            return toPlace.getPlaceTypes();
                         }
 
                         @Override
                         public CharSequence getAddress() {
-                            return null;
+                            return toPlace.getAddress();
                         }
 
                         @Override
                         public Locale getLocale() {
-                            return null;
+                            return toPlace.getLocale();
                         }
 
                         @Override
                         public CharSequence getName() {
-                            return null;
+                            return "Current Location";
                         }
 
                         @Override
@@ -132,42 +135,42 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public LatLngBounds getViewport() {
-                            return null;
+                            return toPlace.getViewport();
                         }
 
                         @Override
                         public Uri getWebsiteUri() {
-                            return null;
+                            return toPlace.getWebsiteUri();
                         }
 
                         @Override
                         public CharSequence getPhoneNumber() {
-                            return null;
+                            return toPlace.getPhoneNumber();
                         }
 
                         @Override
                         public float getRating() {
-                            return 0;
+                            return toPlace.getRating();
                         }
 
                         @Override
                         public int getPriceLevel() {
-                            return 0;
+                            return toPlace.getPriceLevel();
                         }
 
                         @Override
                         public CharSequence getAttributions() {
-                            return null;
+                            return toPlace.getAttributions();
                         }
 
                         @Override
                         public Place freeze() {
-                            return null;
+                            return toPlace.freeze();
                         }
 
                         @Override
                         public boolean isDataValid() {
-                            return false;
+                            return toPlace.isDataValid();
                         }
                     };
                     generateRoute(fromPlace, toPlace);
@@ -180,7 +183,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void generateRoute(Place fromPlace, Place toPlace) {
-        
+        Intent intent = new Intent(this, JourneyActivity.class);
+        intent.putExtra("fromPlaceLong", fromPlace.getLatLng().longitude);
+        intent.putExtra("fromPlaceLat", fromPlace.getLatLng().latitude);
+        intent.putExtra("toPlaceLong", toPlace.getLatLng().longitude);
+        intent.putExtra("toPlaceLat", toPlace.getLatLng().latitude);
+        intent.putExtra("fromPlaceName", fromPlace.getName());
+        intent.putExtra("toPlaceName", fromPlace.getName());
+
+        startActivity(intent);
     }
 
     @Override
