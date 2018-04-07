@@ -18,5 +18,8 @@ module.exports = function scoreTime({legs}) {
             totalScores.push({wimtLineID, timeScore});
         }
     }
-    return totalScores;
+    return {
+        type: 'time',
+        score: totalScores
+    };
 }
