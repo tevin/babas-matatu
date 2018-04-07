@@ -1,0 +1,38 @@
+{   
+    "user": "userID",
+    "id": "journeyName",
+    "journey": {
+        "steps": [
+            {
+                "type": "matatu",
+                "start": "[lat, long]",
+                "end": "[lat, long]",
+                "wimtLineID": "WIMTLineID",
+                "distance": "distanceForEntireLeg",
+                "instructions": "Take #15 at the X Stop",
+                "timeTake": "time",
+                "highestloudness": "loudness"
+            },
+            {
+                "type": "walk",
+                "start": "[lat, long]",
+                "end": "[lat, long]",
+                "distance": "distanceForEntireLeg",
+                "instructions": "Walk to Pizza In",
+                "timeTake": "time",
+                "highestloudness": "loudness"
+            },
+            {
+                "type": "uber",
+                "start": "[lat, long]",
+                "end": "[lat, long]",
+                "distance": "distanceForEntireLeg",
+                "instructions": "Take Uber with $DriverName in $PlateNumber",
+                "uberTripId": "tripID",
+                "timeTake": "time",
+                "highestloudness": "loudness"
+            }
+        ]
+    }
+}
+            
