@@ -13,6 +13,8 @@
                     "distance": "distanceForEntireLeg",
                     "timeTaken": "totalTimeTaken",
                     "highestLoudness": "loudness in dB",
+                    "startStopId": "wimtStopId",
+                    "endStopId": "wimtStopId",
                     "steps": [
                         {
                             "instructions": "Board #15 at the Carnivore Stop",
