@@ -25,6 +25,28 @@
                             "location": "[lat, long]"
                         }
                         
+                    ],
+                    "waypoints": [
+                        {
+                            "stopId": "wimtStopID",
+                            "location": "[lat, long]"
+                        },
+                        {
+                            "stopId": "wimtStopID",
+                            "location": "[lat, long]"
+                        },
+                        {
+                            "stopId": "wimtStopID",
+                            "location": "[lat, long]"
+                        },
+                        {
+                            "stopId": "wimtStopID",
+                            "location": "[lat, long]"
+                        },
+                        {
+                            "stopId": "wimtStopID",
+                            "location": "[lat, long]"
+                        }
                     ]
                 },
                 {
