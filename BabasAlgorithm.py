@@ -22,7 +22,7 @@ class candidate_stops:
         }
 
         response = requests.request("POST", url, data=payload, headers=headers)
-
+        #print(response.json())
         itineraries = response.json()["itineraries"]
         for each_itenerary in itineraries:
             for each_leg in each_itenerary['legs']:
@@ -30,13 +30,17 @@ class candidate_stops:
                 if each_leg['type'] == "Transit":
                     geometry_points = each_leg['geometry']['coordinates']
                     #print(geometry_points)
-                    #print(self.get_distances_between_adjacent_points(geometry_points))
-                    print(self.get_distances_between_start_and_point(geometry_points))
 
+                    start_and_end_points = self.get_start_and_end_points(geometry_points)
+
+
+                    print(each_leg['line']["id"])
                     #self.add_stops(each_leg['line']['id'], each_leg['geometry']['coordinates'][0],
                                    #each_leg['geometry']['coordinates'][len(each_leg['geometry']) - 1])
                     #pass
 
+    def get_stops(self,id):
+        return
     def get_distances_between_adjacent_points(self, points):
         distances = []
         for i in range(1, len(points)):
@@ -53,6 +57,12 @@ class candidate_stops:
             stop = (points[i][0], points[i][1])
             distances.append(haversine(start, stop) * 1000)
         return distances
+
+    def get_start_and_end_points(self, points):
+        length = len(points)-1
+        start = points[0]
+        end = points[length]
+        return [start, end]
 
     #def add_stops(self, line_id, start, end):
         #return
