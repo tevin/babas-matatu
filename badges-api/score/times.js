@@ -1,8 +1,7 @@
 'use strict';
 const distance = require('./helpers/distance');
-const samplePayload = require('../../whatclientsendstoscores')
 
-function scoreTime({legs}) {
+module.exports = function scoreTime({legs}) {
     let totalScores = [];
     for (let i = 0; i < legs.length; i++) {
         const leg = legs[i];
@@ -21,6 +20,3 @@ function scoreTime({legs}) {
     }
     return totalScores;
 }
-
-const scores = scoreTime(samplePayload);
-console.log(scores);
