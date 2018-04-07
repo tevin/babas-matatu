@@ -1,17 +1,26 @@
 'use strict';
-require('./helpers/distance');
+const distance = require('./helpers/distance');
+const samplePayload = require('../../whatclientsendstoscores')
 
-module.exports = async function scoreTime(legs, user) {
-    for (leg in legs) {
+function scoreTime({legs}) {
+    let totalScores = [];
+    for (let i = 0; i < legs.length; i++) {
+        const leg = legs[i];
         if (leg.legType === 'matatu') {
-            const {wimtLineID, waypoints} = leg;
+            const {timeTaken, wimtLineID, waypoints} = leg;
             const stopsTraversed = waypoints.length;
             
             // Calculate Total Distance Between Waypoints
-            for (waypoint in waypoints) {
-                // need to do some data cleansing
-            }
-            
+            const listOfPoints = waypoints.map((w) => w.location);
+            const totalDistance = distance(listOfPoints);
+
+            // Score Leg - The Higher the better.
+            const timeScore = totalDistance / stopsTraversed / timeTaken;
+            totalScores.push({wimtLineID, timeScore});
         }
     }
+    return totalScores;
 }
+
+const scores = scoreTime(samplePayload);
+console.log(scores);

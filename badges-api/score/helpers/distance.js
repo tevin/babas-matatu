@@ -1,5 +1,5 @@
 'use strict';
-const haverside = require('haversine');
+const haversine = require('haversine');
 
 /**
  * Gets total distance between list of points
