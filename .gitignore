@@ -56,7 +56,6 @@ typings/
 
 # dotenv environment variables file
 .env
-<<<<<<< HEAD
 
 .vscode/
 
@@ -171,7 +170,5 @@ venv.bak/
 .mypy_cache/
 
 .idea/
-=======
 /venv
 /.idea
->>>>>>> removed irrelevant files
