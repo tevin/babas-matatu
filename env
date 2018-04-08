@@ -1,0 +1,4 @@
+AUTHENTICATE_ENDPOINT="https://identity.whereismytransport.com/connect/token"
+JOURNEY_ENDPOINT="https://platform.whereismytransport.com/api/journeys"
+CLIENT_ID="1577c95e-22e1-409b-8728-56f7f92e05d9"
+CLIENT_SECRET="f6O8P6x6TDcc9e3fEkImQKRzFhdERbBggW65cVOYC9U="
