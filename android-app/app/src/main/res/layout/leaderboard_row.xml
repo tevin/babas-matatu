@@ -17,14 +17,47 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:textColor="@color/title"
-        android:textSize="16dp"
+        android:fontFamily="@font/circularstd_medium"
+        android:textSize="15sp"
         android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
         android:layout_alignParentRight="true"
-        android:textColor="@color/year" />
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:id="@+id/trophy1"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:src="@drawable/trophy"/>
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_alignLeft="@id/trophy1"
+            android:id="@+id/trophy2"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:src="@drawable/walking"/>
+        <ImageView
+            android:id="@+id/trophy3"
+            android:layout_alignLeft="@id/trophy2"
+            android:layout_marginRight="5dp"
+            android:layout_width="30sp"
+            android:layout_height="30sp"
+            android:src="@drawable/award"/>
+        <TextView
+            android:id="@+id/points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/circularstd_medium"
+            android:textSize="14sp"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/year" />
+    </LinearLayout>
+
+
+
 
 </RelativeLayout>

@@ -44,7 +44,9 @@ public class LeaderboardActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         String url = "https://babas-matatu.herokuapp.com/leaderboard/emissions";
-
+        getSupportActionBar().setTitle("The Leaderboard");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_arrow_back_black_24dp);
         final StringRequest jsonObjectRequest = new StringRequest
                 (Request.Method.GET, url, new Response.Listener<String>() {
 
