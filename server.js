@@ -4,8 +4,8 @@ const fs = require('fs');
 const join = require('path').join
 const express = require('express')
 const mongoose = require('mongoose')
-const config = require('./config/config')
-const models = join(__dirname, 'models')
+const config = require('./badges-api/config/config')
+const models = join(__dirname, './badges-api/models')
 const port = process.env.PORT || 3000
 
 const app = express()
@@ -31,8 +31,8 @@ fs.readdirSync(models)
   .forEach(file => require(join(models, file)))
 
 // Bootstrap routes
-require('./config/express')(app)
-require('./config/routes')(app)
+require('./badges-api/config/express')(app)
+require('./badges-api/config/routes')(app)
 
 connection.on('error', console.error.bind(console, 'connection error:'));
 connection.once('open', listen)
