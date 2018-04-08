@@ -88,8 +88,8 @@ public class JourneyActivity extends AppCompatActivity {
     TextView descriptiveTextView;
     @BindView(R.id.uberButton)
     RideRequestButton uberButton;
-    @BindView(R.id.endRideButton)
-    Button endRideButton;
+    //@BindView(R.id.endRideButton)
+    //Button endRideButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -349,11 +349,11 @@ public class JourneyActivity extends AppCompatActivity {
         }
     }
 
-    @OnClick(R.id.endRideButton)
-    public void endRide(View view) {
-        Toast.makeText(this, "Your ride has ended", Toast.LENGTH_LONG).show();
-        onBackPressed();
-    }
+    //@OnClick(R.id.endRideButton)
+    //public void endRide(View view) {
+    //    Toast.makeText(this, "Your ride has ended", Toast.LENGTH_LONG).show();
+    //    onBackPressed();
+    //}
 
     private GeofencingRequest getGeofencingRequest() {
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
