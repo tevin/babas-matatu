@@ -28,6 +28,7 @@ import babasmatatu.hackerthon.com.babasmatatu.api_models.leaderboards.TopTen;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static babasmatatu.hackerthon.com.babasmatatu.helpers.ProgressExtension.setDialog;
 import static babasmatatu.hackerthon.com.babasmatatu.helpers.StringExtension.isNullOrWhitespace;
 
 /**
@@ -44,6 +45,7 @@ public class LeaderboardActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         String url = "https://babas-matatu.herokuapp.com/leaderboard/emissions";
+        setDialog(this, true, "Please wait...");
 
         final StringRequest jsonObjectRequest = new StringRequest
                 (Request.Method.GET, url, new Response.Listener<String>() {
@@ -51,6 +53,8 @@ public class LeaderboardActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            setDialog(LeaderboardActivity.this, false, null);
+
                             if (!isNullOrWhitespace(response)) {
                                 ObjectMapper mapper = new ObjectMapper();
                                 try {
@@ -75,7 +79,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        //Do nothing
+                        setDialog(LeaderboardActivity.this, false, null);
                     }
                 });
 
