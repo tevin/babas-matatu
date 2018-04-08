@@ -120,8 +120,8 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({R.id.award, R.id.trophy, R.id.coins})
     public void imageClick(View v) {
         mExplosionField.explode(v);
-        mExplosionField.refreshDrawableState();
-        v.setOnClickListener(null);
+        v.animate().setDuration(150).setStartDelay(150).scaleX(1.0f).scaleY(1.0f).alpha(1.0f).start();
+        //v.setOnClickListener(null);
     }
 
     @OnClick(R.id.toEditText)
