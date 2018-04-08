@@ -11,12 +11,15 @@ const leaderboards = [
 
 exports.get = async (req, res) => {
     const lbType = req.params.type;
+    if(!lbType) {
+        return res.status(400).json('Please provide a type');
+    }
     const user = req.query.user;
     const {lb} = leaderboards.find(l => l.type === lbType);
     
     if(!lb) {
         console.log(req.params);
-        return res.status(500).json('Type is missing');
+        return res.status(500).json('Could not find leaderboard type specified');
     }
     let query = {};
     if (lbType === 'time') {
