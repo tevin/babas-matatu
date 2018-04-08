@@ -21,8 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".JourneyActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity android:name=".helpers.LeaderboardActivity"
             android:windowSoftInputMode="stateHidden">

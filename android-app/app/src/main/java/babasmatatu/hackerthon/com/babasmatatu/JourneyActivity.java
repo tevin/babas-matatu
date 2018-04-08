@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -108,6 +109,8 @@ public class JourneyActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
 
+
+
         fromPlaceJsonLong = extras.getDouble("fromPlaceLong");
         fromPlaceJsonLat = extras.getDouble("fromPlaceLat");
         toPlaceJsonLong = extras.getDouble("toPlaceLong");
@@ -115,6 +118,11 @@ public class JourneyActivity extends AppCompatActivity {
 
         String fromPlaceName = extras.getString("fromPlaceName");
         String toPlaceName = extras.getString("toPlaceName");
+
+        getSupportActionBar().setTitle("Your Itinerary");
+        getSupportActionBar().setElevation(0);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_arrow_back_black_24dp);
 
         String journeyString = extras.getString("journey");
 
@@ -329,9 +337,19 @@ public class JourneyActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.drawable.ic_arrow_back_black_24dp:
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     public void computeSliderHeight(Boolean isUberActive){
         if (isUberActive) slidingLayout.setPanelHeight(560);
-        else slidingLayout.setPanelHeight(300);
+        else slidingLayout.setPanelHeight(200);
     }
 
     @Override
@@ -355,8 +373,6 @@ public class JourneyActivity extends AppCompatActivity {
     }
     public void setViewStyles(int pos, ListView listView) {
         TextView textView = (TextView) listView.getAdapter().getView(pos, null, listView);
-        Log.d("Text View", textView.toString());
-        textView.setTextSize(16);
         textView.setTextAppearance(this, R.style.journey_in_progress);
 
     }
