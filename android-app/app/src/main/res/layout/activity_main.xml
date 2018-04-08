@@ -11,149 +11,154 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="0dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="90dp"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="10dp"
+            android:background="@drawable/top_gradient"
             android:orientation="horizontal">
 
+            <ImageView
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:layout_width="0dp"
+                android:src="@drawable/avatar"
+                android:layout_height="50dp" />
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_weight="4"
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="Hey John"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/circularstd_medium"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/circularstd_medium"
+                    android:textColor="#ffffff"
+                    android:text="Ready for an adventure again?"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Score:"
-                android:textSize="18dp"
-                android:layout_weight="1.5" />
-
-            <EditText
-                android:id="@+id/scoreEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_weight="6"
-                android:enabled="false"
-                android:text="6"
-                android:textColor="#000" />
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#c39f3b"
+                android:textSize="14sp"
+                android:fontFamily="@font/circularstd_medium"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:text="101pts"
+                />
         </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="10dp">
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentLeft="true"
-                android:background="@drawable/imageborder" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/imageborder" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="end"
-                android:background="@drawable/imageborder" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_marginHorizontal="10dp">
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentLeft="true"
-                android:background="@drawable/imageborder" />
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/imageborder" />
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_alignParentRight="true"
-                android:layout_gravity="end"
-                android:background="@drawable/imageborder" />
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="Request A Trip"
-            android:textSize="20dp"
-            android:textColor="#000"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/linearlayoutbackground"
-            android:orientation="vertical">
-
+            android:layout_marginTop="5dp"
+            android:layout_marginHorizontal="20dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
                 android:orientation="horizontal">
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="From"
-                    android:textSize="16dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"/>
+                    android:textSize="16sp"
+                    android:textColor="#FF4A4A4A"
+                    android:fontFamily="@font/circularstd_medium"
+                    android:text="Achievements"/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="40dp"
+                android:layout_marginHorizontal="30dp">
+
+                <ImageView
+                    android:id="@+id/trophy"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/walking"
+                    android:scaleType="fitCenter" />
+
+                <ImageView
+                    android:id="@+id/award"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/destination" />
+
+                <ImageView
+                    android:id="@+id/coins"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="end"
+                    android:src="@drawable/money" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#FF4A4A4A"
+                android:fontFamily="@font/circularstd_medium"
+                android:text="Start your Adventure"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
                 <EditText
                     android:id="@+id/fromEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
-                    android:text="Current Location"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="10dp"
+                    android:paddingLeft="10dp"
+                    android:hint="Current Location"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/circularstd_medium"
+                    android:background="@drawable/rounded_edittext"
                     android:focusable="false"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="To"
-                    android:textSize="16dp"
-                    android:layout_weight="1"
-                    android:layout_marginLeft="10dp"/>
                 <EditText
                     android:id="@+id/toEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="10dp"
+                    android:hint="Destination"
+                    android:paddingLeft="10dp"
+                    android:textSize="13sp"
+                    android:fontFamily="@font/circularstd_medium"
+                    android:background="@drawable/rounded_edittext"
                     android:focusable="false"/>
             </LinearLayout>
 
@@ -161,26 +166,16 @@
                 android:id="@+id/goButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Go!"
-                android:textSize="16dp"
-                android:background="@color/colorPrimary"
+                android:text="Go"
+                android:textSize="14dp"
+                android:background="@drawable/roundshape"
                 android:textColor="@android:color/white"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+
                 style="?android:attr/borderlessButtonStyle"/>
         </LinearLayout>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Take Me Somewhere"
-            android:textSize="16dp"
-            android:background="@color/colorAccent"
-            android:textColor="@android:color/white"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="20dp"
-            style="?android:attr/borderlessButtonStyle"/>
     </LinearLayout>
 </ScrollView>
