@@ -14,7 +14,7 @@ exports.get = async (req, res) => {
     if(!lbType) {
         return res.status(400).json('Please provide a type');
     }
-    const user = req.query.user;
+
     const {lb} = leaderboards.find(l => l.type === lbType);
     
     if(!lb) {
@@ -26,11 +26,20 @@ exports.get = async (req, res) => {
         query.line = req.query.line;
     }
 
-    const topTen = await lb.find(query).limit(10);
-    const toReturn = {topTen}
-    if(user) {
-        toReturn.userPosition = await lb.findOne({...query, user});
-        toReturn.userRank = await lb.find({...query, pts: {$gt: toReturn.userPosition.score}}).count() + 1;
-    }
-    res.json(toReturn);
+    const usersInLb = await lb.distinct('user', query);
+    const scoresP = usersInLb.map(async (user) => {
+        const entries = await lb.find({...query, user});
+        const score = entries.reduce((acc, entry) => {
+            return acc += entry.score;
+        }, 0);
+        const {name} = await Users.findById(user);
+        console.log({name, score});
+        return {name, score};
+    });
+    const scores = await Promise.all(scoresP);
+    scores.sort((e1, e2) => {
+        return e1.score - e2.score;
+    });
+
+    res.json(scores);
 }
