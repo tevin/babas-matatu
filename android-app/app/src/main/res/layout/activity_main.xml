@@ -32,10 +32,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:enabled="false"
-                android:textColor="#000"
                 android:layout_weight="6"
-                android:text="0"/>
+                android:enabled="false"
+                android:text="6"
+                android:textColor="#000" />
         </LinearLayout>
 
         <RelativeLayout
