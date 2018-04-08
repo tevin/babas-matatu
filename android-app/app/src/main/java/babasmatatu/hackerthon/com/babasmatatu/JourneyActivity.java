@@ -103,6 +103,8 @@ public class JourneyActivity extends AppCompatActivity {
         mGeofencePendingIntent = null;
         mGeofencingClient = LocationServices.getGeofencingClient(this);
 
+        final Handler h = new Handler();
+
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
 
@@ -147,8 +149,6 @@ public class JourneyActivity extends AppCompatActivity {
                 .build();
 
         UberSdk.initialize(config);
-
-        final Handler h = new Handler();
 
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
 
@@ -241,7 +241,7 @@ public class JourneyActivity extends AppCompatActivity {
                 try{
                     if (journeyCount == journey.getSteps().length ){
                         //End trip
-                        Toast.makeText(JourneyActivity.this, "Your trip has ended", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(JourneyActivity.this, "Your trip has ended", Toast.LENGTH_LONG).show();
                         onBackPressed();
                         return;
                     }
