@@ -202,7 +202,7 @@ public class JourneyActivity extends AppCompatActivity {
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+                R.layout.simple_list_item, R.id.custom_list_item, values);
 
 
         // Assign adapter to ListView
@@ -221,7 +221,8 @@ public class JourneyActivity extends AppCompatActivity {
                 uberButton.setVisibility(View.GONE);
                 computeSliderHeight(false);
             }
-            journeyList.setSelection(0);
+
+            setViewStyles(0, journeyList);
         }catch (Exception e){
             //Do nothing
         }
@@ -245,7 +246,7 @@ public class JourneyActivity extends AppCompatActivity {
                         return;
                     }
 
-                    journeyList.setSelection(journeyCount);
+                    setViewStyles(journeyCount, journeyList);
                     Steps step = journey.getSteps()[journeyCount];
                     descriptiveTextView.setText(step.getInstructions());
 
@@ -351,6 +352,13 @@ public class JourneyActivity extends AppCompatActivity {
         } catch (Exception e) {
             //Do nothing
         }
+    }
+    public void setViewStyles(int pos, ListView listView) {
+        TextView textView = (TextView) listView.getAdapter().getView(pos, null, listView);
+        Log.d("Text View", textView.toString());
+        textView.setTextSize(16);
+        textView.setTextAppearance(this, R.style.journey_in_progress);
+
     }
 
     @OnClick(R.id.endRideButton)

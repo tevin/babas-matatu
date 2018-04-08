@@ -59,7 +59,7 @@
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:text="101pts"
+                android:text="6pts"
                 />
         </LinearLayout>
 
@@ -138,6 +138,7 @@
                     android:layout_weight="6"
                     android:paddingLeft="10dp"
                     android:hint="Current Location"
+                    android:text="Current Location"
                     android:textSize="13sp"
                     android:fontFamily="@font/circularstd_medium"
                     android:background="@drawable/rounded_edittext"
