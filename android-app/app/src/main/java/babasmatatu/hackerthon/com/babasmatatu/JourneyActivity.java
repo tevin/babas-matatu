@@ -349,6 +349,29 @@ public class JourneyActivity extends AppCompatActivity {
         }
     }
 
+    public View getViewByPosition(int pos, ListView listView) {
+        final int firstListItemPosition = listView.getFirstVisiblePosition();
+        final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
+
+        if (pos < firstListItemPosition || pos > lastListItemPosition ) {
+            return listView.getAdapter().getView(pos, null, listView);
+        } else {
+            final int childIndex = pos - firstListItemPosition;
+            return listView.getChildAt(childIndex);
+        }
+    }
+
+    public void resetListViewStyles(){
+        try{
+            for (int i = 0; i < journeyList.getChildCount(); i++){
+                TextView textView = (TextView) journeyList.getAdapter().getView(i, null, journeyList);
+                //textView.setTextAppearance(this, R.style.j);
+            }
+        }catch (Exception e){
+            //Do nothing
+        }
+    }
+
     @OnClick(R.id.endRideButton)
     public void endRide(View view) {
         Toast.makeText(this, "Your ride has ended", Toast.LENGTH_LONG).show();
