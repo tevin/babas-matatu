@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.gson.Gson;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
 import java.util.List;
 import java.util.Locale;
@@ -64,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
         getInitalLocationGlobal(this);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setElevation(0);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.ic_dehaze_black_24dp);
+
     }
 
     @Override
@@ -75,7 +80,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                // TODO Auto-generated method stub
+                new LovelyInfoDialog(MainActivity.this)
+                        .setTopColorRes(R.color.colorPrimary)
+                        .setTitle("Coming Soon")
+                        .setMessage(Html.fromHtml("Points earned can be <b>redeemed</b> for Free Rides, Coupons or Airtime, Discounts etc"))
+                        .setIcon(R.drawable.coin)
+                        .show();
                 return false;
             }
         });
@@ -112,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick({R.id.award, R.id.trophy, R.id.coins})
     public void imageClick(View v) {
         mExplosionField.explode(v);
+        mExplosionField.refreshDrawableState();
         v.setOnClickListener(null);
 
         Intent intent = new Intent(this, LeaderboardActivity.class);
