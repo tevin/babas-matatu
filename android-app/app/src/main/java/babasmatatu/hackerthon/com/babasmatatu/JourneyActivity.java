@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +45,9 @@ import com.uber.sdk.android.core.UberSdk;
 import com.uber.sdk.android.rides.RideParameters;
 import com.uber.sdk.android.rides.RideRequestButton;
 import com.uber.sdk.rides.client.SessionConfiguration;
+import com.yarolegovich.lovelydialog.LovelyCustomDialog;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
+import com.yarolegovich.lovelydialog.LovelyProgressDialog;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -88,8 +92,8 @@ public class JourneyActivity extends AppCompatActivity {
     TextView descriptiveTextView;
     @BindView(R.id.uberButton)
     RideRequestButton uberButton;
-    //@BindView(R.id.endRideButton)
-    //Button endRideButton;
+    @BindView(R.id.endRideButton)
+    Button endRideButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -349,11 +353,17 @@ public class JourneyActivity extends AppCompatActivity {
         }
     }
 
-    //@OnClick(R.id.endRideButton)
-    //public void endRide(View view) {
-    //    Toast.makeText(this, "Your ride has ended", Toast.LENGTH_LONG).show();
-    //    onBackPressed();
-    //}
+    @OnClick(R.id.endRideButton)
+    public void endRide(View view) {
+        Toast.makeText(this, "Your ride has ended", Toast.LENGTH_LONG).show();
+        //onBackPressed();
+        new LovelyInfoDialog(this)
+                .setTopColorRes(R.color.colorPrimary)
+                .setTitle("Journey Ended")
+                .setMessage(Html.fromHtml("Congrats on your safe journey! You have received <b>5 new points!</b>"))
+                .setIcon(R.drawable.avatar)
+                .show();
+    }
 
     private GeofencingRequest getGeofencingRequest() {
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
