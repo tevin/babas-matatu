@@ -138,6 +138,7 @@
                     android:layout_weight="6"
                     android:paddingLeft="10dp"
                     android:hint="Current Location"
+                    android:text="Current Location"
                     android:textSize="13sp"
                     android:fontFamily="@font/circularstd_medium"
                     android:background="@drawable/rounded_edittext"
