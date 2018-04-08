@@ -173,9 +173,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-
-                style="?android:attr/borderlessButtonStyle"/>
+                android:layout_marginLeft="20dp" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
