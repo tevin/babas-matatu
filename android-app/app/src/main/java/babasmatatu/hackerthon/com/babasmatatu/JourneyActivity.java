@@ -217,7 +217,8 @@ public class JourneyActivity extends AppCompatActivity {
                 uberButton.setVisibility(View.GONE);
                 computeSliderHeight(false);
             }
-            journeyList.setSelection(0);
+
+            setViewStyles(0, journeyList);
         }catch (Exception e){
             //Do nothing
         }
@@ -241,7 +242,7 @@ public class JourneyActivity extends AppCompatActivity {
                         return;
                     }
 
-                    journeyList.setSelection(journeyCount);
+                    setViewStyles(journeyCount, journeyList);
                     Steps step = journey.getSteps()[journeyCount];
                     descriptiveTextView.setText(step.getInstructions());
 
@@ -349,15 +350,22 @@ public class JourneyActivity extends AppCompatActivity {
         }
     }
 
-    public View getViewByPosition(int pos, ListView listView) {
+    public void setViewStyles(int pos, ListView listView) {
+        resetListViewStyles();
+
         final int firstListItemPosition = listView.getFirstVisiblePosition();
         final int lastListItemPosition = firstListItemPosition + listView.getChildCount() - 1;
 
         if (pos < firstListItemPosition || pos > lastListItemPosition ) {
-            return listView.getAdapter().getView(pos, null, listView);
-        } else {
-            final int childIndex = pos - firstListItemPosition;
-            return listView.getChildAt(childIndex);
+            TextView textView = (TextView) listView.getAdapter().getView(pos, null, listView);
+            textView.setTextAppearance(this, R.style.journey_in_progress);
+        }
+
+        for (int i = 0; i < journeyList.getChildCount(); i++){
+            if (i < pos){
+                TextView textView = (TextView) journeyList.getAdapter().getView(i, null, journeyList);
+                textView.setTextAppearance(this, R.style.journey_completed);
+            }
         }
     }
 
@@ -365,7 +373,7 @@ public class JourneyActivity extends AppCompatActivity {
         try{
             for (int i = 0; i < journeyList.getChildCount(); i++){
                 TextView textView = (TextView) journeyList.getAdapter().getView(i, null, journeyList);
-                //textView.setTextAppearance(this, R.style.j);
+                //textView.setTextAppearance(this, R.style.journey_completed);
             }
         }catch (Exception e){
             //Do nothing
