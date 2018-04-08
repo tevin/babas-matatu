@@ -24,6 +24,9 @@
             android:windowSoftInputMode="stateHidden"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity android:name=".helpers.LeaderboardActivity"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

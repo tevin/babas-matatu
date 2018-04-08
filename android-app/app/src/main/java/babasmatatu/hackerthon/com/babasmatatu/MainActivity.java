@@ -29,12 +29,14 @@ import java.util.Locale;
 import java.util.UUID;
 
 import babasmatatu.hackerthon.com.babasmatatu.helpers.ILocationCallback;
+import babasmatatu.hackerthon.com.babasmatatu.helpers.LeaderboardActivity;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static babasmatatu.hackerthon.com.babasmatatu.helpers.MiscServices.getInitalLocationGlobal;
 import static babasmatatu.hackerthon.com.babasmatatu.helpers.MiscServices.getLocationGlobal;
+
 import tyrantgit.explosionfield.ExplosionField;
 
 public class MainActivity extends AppCompatActivity {
@@ -80,11 +82,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void triggerAutoComplete(int resultCode){
+    public void triggerAutoComplete(int resultCode) {
         try {
             String query = "";
 
-            if (resultCode == PLACE_AUTOCOMPLETE_REQUEST_CODE_FROM && !fromEditText.getText().toString().toLowerCase().equals("Current Location".toLowerCase())){
+            if (resultCode == PLACE_AUTOCOMPLETE_REQUEST_CODE_FROM && !fromEditText.getText().toString().toLowerCase().equals("Current Location".toLowerCase())) {
                 query = fromEditText.getText().toString();
             }
 
@@ -111,6 +113,9 @@ public class MainActivity extends AppCompatActivity {
     public void imageClick(View v) {
         mExplosionField.explode(v);
         v.setOnClickListener(null);
+
+        Intent intent = new Intent(this, LeaderboardActivity.class);
+        startActivity(intent);
     }
 
     @OnClick(R.id.toEditText)
@@ -120,17 +125,17 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.goButton)
     public void gogogo(View view) {
-        if (!fromEditText.getText().toString().toLowerCase().equals("Current Location".toLowerCase()) && fromPlace == null){
+        if (!fromEditText.getText().toString().toLowerCase().equals("Current Location".toLowerCase()) && fromPlace == null) {
             Toast.makeText(this, "You need to enter the location to start from", Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (toPlace == null){
+        if (toPlace == null) {
             Toast.makeText(this, "You need to enter your destination", Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (fromPlace == null){
+        if (fromPlace == null) {
             ILocationCallback callback = new ILocationCallback() {
                 @Override
                 public void onSuccess(final Location location) {
@@ -257,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
+        switch (requestCode) {
             case 1:
                 getInitalLocationGlobal(this);
                 break;
