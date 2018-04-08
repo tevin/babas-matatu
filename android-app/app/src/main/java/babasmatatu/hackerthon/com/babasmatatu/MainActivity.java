@@ -3,6 +3,7 @@ package babasmatatu.hackerthon.com.babasmatatu;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;
@@ -24,12 +27,15 @@ import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.gson.Gson;
+import com.uber.sdk.android.rides.RideParameters;
 import com.yarolegovich.lovelydialog.LovelyInfoDialog;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+import babasmatatu.hackerthon.com.babasmatatu.api_models.routes.Steps;
 import babasmatatu.hackerthon.com.babasmatatu.helpers.ILocationCallback;
 import babasmatatu.hackerthon.com.babasmatatu.helpers.LeaderboardActivity;
 import butterknife.BindView;
@@ -123,6 +129,19 @@ public class MainActivity extends AppCompatActivity {
     public void imageClick(View v) {
         mExplosionField.explode(v);
         v.animate().setDuration(150).setStartDelay(150).scaleX(1.0f).scaleY(1.0f).alpha(1.0f).start();
+
+        final Handler h = new Handler();
+
+        h.postDelayed(new Runnable() {
+            private long time = 0;
+            int journeyCount = 1;
+
+            @Override
+            public void run() {
+                h.removeCallbacks(this);
+            }
+        }, 200); // 1 second delay (takes millis)
+
         Intent intent = new Intent(this, LeaderboardActivity.class);
         startActivity(intent);
     }
@@ -237,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
                 "        \"end\": \"[-1.300615, 36.787747]\",\n" +
                 "        \"line\": \"WIMTLineID\",\n" +
                 "        \"distance\": \"distanceForEntireLeg\",\n" +
-                "        \"instructions\": \"Take #15 at the X Stop\",\n" +
+                "        \"instructions\": \"Take #15 at the Kenyatta Bus Stop\",\n" +
                 "        \"waypoints\": \"[[stopid_1, stopid_2, ...]]\"\n" +
                 "    },\n" +
                 "    {\n" +
@@ -252,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                 "        \"start\": \"[-1.299897, 36.783949]\",\n" +
                 "        \"end\": \"[-1.299897, 36.783949]\",\n" +
                 "        \"distance\": \"distanceForEntireLeg\",\n" +
-                "        \"instructions\": \"Take Uber with $DriverName in $PlateNumber\",\n" +
+                "        \"instructions\": \"Take an Uber the rest of the way\",\n" +
                 "        \"uberTripId\": \"tripID\"\n" +
                 "    }]\n" +
                 "}\n";

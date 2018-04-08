@@ -38,7 +38,7 @@ exports.get = async (req, res) => {
     });
     const scores = await Promise.all(scoresP);
     scores.sort((e1, e2) => {
-        return e1.score - e2.score;
+        return e2.score - e1.score;
     });
 
     res.json(scores);

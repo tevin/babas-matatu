@@ -104,10 +104,10 @@ public class JourneyActivity extends AppCompatActivity {
         mGeofencePendingIntent = null;
         mGeofencingClient = LocationServices.getGeofencingClient(this);
 
+        final Handler h = new Handler();
+
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-
-
 
         fromPlaceJsonLong = extras.getDouble("fromPlaceLong");
         fromPlaceJsonLat = extras.getDouble("fromPlaceLat");
@@ -155,8 +155,6 @@ public class JourneyActivity extends AppCompatActivity {
                 .build();
 
         UberSdk.initialize(config);
-
-        final Handler h = new Handler();
 
         GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
 
@@ -249,8 +247,9 @@ public class JourneyActivity extends AppCompatActivity {
                 try{
                     if (journeyCount == journey.getSteps().length ){
                         //End trip
-                        Toast.makeText(JourneyActivity.this, "Your trip has ended", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(JourneyActivity.this, "Your trip has ended", Toast.LENGTH_LONG).show();
                         onBackPressed();
+                        h.removeCallbacks(this);
                         return;
                     }
 
@@ -267,33 +266,36 @@ public class JourneyActivity extends AppCompatActivity {
                         ObjectMapper mapper = new ObjectMapper();
                         double longitudeStart = 0.0, latitudeStart = 0.0, longitudeEnd = 0.0, latitudeEnd = 0.0;
 
-                        try {
-                            List<Double> participantJsonStartList = mapper.readValue(longLatStringStart, new TypeReference<List<Double>>() {
-                            });
-                            List<Double> participantJsonEndList = mapper.readValue(longLatStringEnd, new TypeReference<List<Double>>() {
-                            });
+                        longitudeStart = fromPlaceJsonLong;
 
-                            if (!participantJsonStartList.isEmpty()) {
-                                longitudeStart = participantJsonStartList.get(0);
-                                latitudeStart = participantJsonStartList.get(1);
-                            }
 
-                            if (!participantJsonEndList.isEmpty()) {
-                                latitudeEnd = participantJsonEndList.get(0);
-                                longitudeEnd = participantJsonEndList.get(1);
-                            }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        //try {
+                        //    List<Double> participantJsonStartList = mapper.readValue(longLatStringStart, new TypeReference<List<Double>>() {
+                        //    });
+                        //    List<Double> participantJsonEndList = mapper.readValue(longLatStringEnd, new TypeReference<List<Double>>() {
+                        //    });
+//
+                        //    if (!participantJsonStartList.isEmpty()) {
+                        //        longitudeStart = participantJsonStartList.get(0);
+                        //        latitudeStart = participantJsonStartList.get(1);
+                        //    }
+//
+                        //    if (!participantJsonEndList.isEmpty()) {
+                        //        latitudeEnd = participantJsonEndList.get(0);
+                        //        longitudeEnd = participantJsonEndList.get(1);
+                        //    }
+                        //} catch (IOException e) {
+                        //    e.printStackTrace();
+                        //}
 
                         RideParameters rideParams = new RideParameters.Builder()
                                 // Optional product_id from /v1/products endpoint (e.g. UberX). If not provided, most cost-efficient product will be used
                                 .setProductId("a1111c8c-c720-46c3-8534-2fcdd730040d")
                                 // Required for price estimates; lat (Double), lng (Double), nickname (String), formatted address (String) of dropoff location
                                 .setDropoffLocation(
-                                        latitudeStart, longitudeStart, "", "")
+                                        toPlaceJsonLat, toPlaceJsonLong, "", "")
                                 // Required for pickup estimates; lat (Double), lng (Double), nickname (String), formatted address (String) of pickup location
-                                .setPickupLocation(latitudeEnd, longitudeEnd, "", "")
+                                .setPickupLocation(fromPlaceJsonLat, fromPlaceJsonLong, "", "")
                                 .build();
 // set parameters for the RideRequestButton instance
                         uberButton.setRideParameters(rideParams);
@@ -312,7 +314,7 @@ public class JourneyActivity extends AppCompatActivity {
                 }
                 h.postDelayed(this, 5000);
             }
-        }, 15000); // 1 second delay (takes millis)
+        }, 5000); // 1 second delay (takes millis)
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -349,7 +351,7 @@ public class JourneyActivity extends AppCompatActivity {
     }
     public void computeSliderHeight(Boolean isUberActive){
         if (isUberActive) slidingLayout.setPanelHeight(560);
-        else slidingLayout.setPanelHeight(200);
+        else slidingLayout.setPanelHeight(300);
     }
 
     @Override
