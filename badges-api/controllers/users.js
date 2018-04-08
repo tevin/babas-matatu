@@ -21,15 +21,12 @@ exports.get = async (req, res) => {
   const uid = req.params.uid;
   const user = await User.find({_id: uid});
   const trophies = user.trophies;
-  const query = {
-    user: '5ac8d375e488b67b9ac4917b'
-  }
   let boards = [];
 
   for(let i = 0; i < lbs.length; i++ ) {
     const lb = lbs[i].lb;
     const leaderboard = lbs[i].type
-    const entry = await lb.find(query);
+    const entry = await lb.find({user: uid});
     const rank = await lb.find({pts: {$gt: entry.score}}).count() + 1;
     if(entry.length > 0) {
       boards.push({leaderboard, entry, rank});
