@@ -23,6 +23,9 @@
         <activity android:name=".JourneyActivity"
             android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity android:name=".helpers.LeaderboardActivity"
+            android:windowSoftInputMode="stateHidden">
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
