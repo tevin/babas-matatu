@@ -7,8 +7,11 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -32,13 +35,17 @@ import butterknife.OnClick;
 
 import static babasmatatu.hackerthon.com.babasmatatu.helpers.MiscServices.getInitalLocationGlobal;
 import static babasmatatu.hackerthon.com.babasmatatu.helpers.MiscServices.getLocationGlobal;
+import tyrantgit.explosionfield.ExplosionField;
 
 public class MainActivity extends AppCompatActivity {
+
+    private ExplosionField mExplosionField;
 
     @BindView(R.id.fromEditText)
     EditText fromEditText;
     @BindView(R.id.toEditText)
     EditText toEditText;
+
 
     final int PLACE_AUTOCOMPLETE_REQUEST_CODE_FROM = 2;
     final int PLACE_AUTOCOMPLETE_REQUEST_CODE_TO = 3;
@@ -51,7 +58,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        mExplosionField = ExplosionField.attach2Window(this);
         getInitalLocationGlobal(this);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setElevation(0);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuItem item = menu.add("Title"); //your desired title here
+        item.setIcon(R.drawable.coin); //your desired icon here
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                // TODO Auto-generated method stub
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     public void triggerAutoComplete(int resultCode){
@@ -79,6 +105,12 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.fromEditText)
     public void triggerFromAutoComplete(View view) {
         triggerAutoComplete(PLACE_AUTOCOMPLETE_REQUEST_CODE_FROM);
+    }
+
+    @OnClick({R.id.award, R.id.trophy, R.id.coins})
+    public void imageClick(View v) {
+        mExplosionField.explode(v);
+        v.setOnClickListener(null);
     }
 
     @OnClick(R.id.toEditText)
